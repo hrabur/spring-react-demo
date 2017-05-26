@@ -36,6 +36,8 @@ public class ScoringServiceImpl implements ScoringService {
 		match.setPlayers(new String[] { leftPlayer, rightPlayer });
 		match.setGames(games);
 		
+		matches.put(matchId, match);
+		
 		return match;
 	}
 

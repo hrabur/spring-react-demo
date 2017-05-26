@@ -1,33 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
+import $ from 'jquery'
+import MatchCard from './MatchCard'
+import AddMatchDialog from './AddMatchDialog'
 
 export default class App extends React.Component {
    state = {
-     count: 0
+     matches: []
    }
 
   componentDidMount() {
-    this.start();
-  }
-
-  stop = () => {
-    clearInterval(this.state.tickerId);
-    this.setState({tickerId: null});
-  }
-
-  start = () => {
-    let tickerId = setInterval(() => {
-      let count = this.state.count + 1;
-      this.setState({count: count});
-    }, 600);
-    this.setState({tickerId: tickerId});
+    $.getJSON( "/api/matches", ( data ) => {
+      this.setState({ matches: data });
+    });
   }
 
   render = () => {
     return (
       <div>
-        <h1>Ticker is {this.state.count}</h1>
-        {this.state.tickerId && <button onClick={this.stop}>Stop</button>}
-        {!this.state.tickerId &&<button onClick={this.start}>Start</button>}
+        <div className="md-grid">
+          {this.state.matches.map((match) =>
+            <MatchCard match={match}/>
+          )}
+        </div>
+        <AddMatchDialog />
       </div>
     )
   }

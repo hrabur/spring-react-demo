@@ -29,7 +29,7 @@ public class ScoringApi {
         return scoringService.getMatchInfo(matchId);
     }
     
-    @PostMapping()
+    @PostMapping
     public Match createMatch(String leftPlayer, String rightPlayer, int gamesNumber) {
     	return scoringService.createMatch(leftPlayer, rightPlayer, gamesNumber);
     }
